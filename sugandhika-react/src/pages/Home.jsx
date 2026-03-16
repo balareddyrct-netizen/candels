@@ -21,6 +21,10 @@ export default function Home() {
   useRevealAll();
 
   useEffect(() => {
+    let mouseMoveHandler;
+    let mouseLeaveHandler;
+    let heroEl = heroRef.current;
+
     import('gsap').then(mod => {
       const gsap = mod.gsap || mod.default;
       if (!gsap) return;
@@ -56,11 +60,41 @@ export default function Home() {
           y: 9, duration: 1.3, ease: 'sine.inOut', yoyo: true, repeat: -1, delay: 2.4,
         });
 
-        // Hero background parallax
+        // Hero background multi-layer scroll parallax
         gsap.to('.hero-bg-img', {
-          yPercent: 20, ease: 'none',
+          yPercent: 25, ease: 'none',
           scrollTrigger: { trigger: heroRef.current, start: 'top top', end: 'bottom top', scrub: 1.2 },
         });
+        
+        // Hero foreground pop scroll parallax
+        gsap.to('.hero-inner', {
+          yPercent: -15, ease: 'none',
+          scrollTrigger: { trigger: heroRef.current, start: 'top top', end: 'bottom top', scrub: 0.8 },
+        });
+
+        // 3D Mouse tracking parallax
+        mouseMoveHandler = (e) => {
+          if (!heroEl) return;
+          const { left, top, width, height } = heroEl.getBoundingClientRect();
+          const x = e.clientX - left;
+          const y = e.clientY - top;
+          const xNorm = (x / width) - 0.5; // -0.5 to 0.5
+          const yNorm = (y / height) - 0.5;
+
+          gsap.to(logoRef.current, { rotateX: yNorm * -20, rotateY: xNorm * 20, x: xNorm * 40, y: yNorm * 40, duration: 0.8, ease: 'power2.out' });
+          gsap.to(titleRef.current, { rotateX: yNorm * -10, rotateY: xNorm * 10, x: xNorm * 80, y: yNorm * 80, duration: 0.8, ease: 'power2.out' });
+          gsap.to('.hero-bg-img', { x: xNorm * -60, y: yNorm * -60, duration: 1.2, ease: 'power2.out' });
+        };
+
+        mouseLeaveHandler = () => {
+          gsap.to([logoRef.current, titleRef.current], { rotateX: 0, rotateY: 0, x: 0, y: 0, duration: 1, ease: 'power2.out' });
+          gsap.to('.hero-bg-img', { x: 0, y: 0, duration: 1, ease: 'power2.out' });
+        };
+
+        if (heroEl) {
+          heroEl.addEventListener('mousemove', mouseMoveHandler);
+          heroEl.addEventListener('mouseleave', mouseLeaveHandler);
+        }
 
         // Floating bokeh
         bokehs.current.forEach((el, i) => {
@@ -114,6 +148,14 @@ export default function Home() {
 
       }).catch(() => {});
     }).catch(() => {});
+
+    // Cleanup event listeners
+    return () => {
+      if (heroEl) {
+        if (mouseMoveHandler) heroEl.removeEventListener('mousemove', mouseMoveHandler);
+        if (mouseLeaveHandler) heroEl.removeEventListener('mouseleave', mouseLeaveHandler);
+      }
+    };
   }, [loadingProducts]); // Re-run animations if products wait to load
 
   const featured = products ? products.filter(p => p.featured).slice(0, 3) : [];
