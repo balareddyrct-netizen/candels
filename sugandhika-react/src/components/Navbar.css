@@ -1,0 +1,169 @@
+.navbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 800;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 60px;
+  transition: background var(--trans), padding var(--trans), box-shadow var(--trans);
+}
+.navbar.solid {
+  background: rgba(245, 240, 224, 0.97);
+  backdrop-filter: blur(16px);
+  padding: 10px 60px;
+  border-bottom: 1px solid rgba(160, 120, 40, 0.18);
+  box-shadow: 0 2px 24px rgba(160, 120, 40, 0.08);
+}
+
+.nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+.nav-logo-img {
+  width: 52px; height: 52px; border-radius: 50%;
+  object-fit: cover; border: 1.5px solid var(--gold-ring);
+  transition: transform .3s;
+}
+.nav-logo:hover .nav-logo-img { transform: scale(1.06); }
+.nav-logo-text {
+  font-family: var(--sans); font-size: 14px; font-weight: 600;
+  letter-spacing: 4px; text-transform: uppercase; color: var(--gold);
+}
+
+.nav-links { display: flex; gap: 40px; list-style: none; }
+.nav-links a {
+  font-size: 10px; letter-spacing: 4px; text-transform: uppercase;
+  color: var(--deep); text-decoration: none; position: relative;
+  padding-bottom: 2px; opacity: .65; transition: all var(--trans);
+}
+.nav-links a::after {
+  content: ''; position: absolute; bottom: 0; left: 0;
+  width: 0; height: 1px; background: var(--gold);
+  transition: width var(--trans);
+}
+.nav-links a:hover, .nav-links a.active { opacity: 1; color: var(--gold); }
+.nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+
+.nav-right { display: flex; align-items: center; gap: 20px; }
+
+.nav-cart {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--deep); cursor: pointer; text-decoration: none;
+  opacity: .65; transition: all var(--trans);
+}
+.nav-cart:hover { opacity: 1; color: var(--gold); }
+.cart-dot {
+  width: 20px; height: 20px; border-radius: 50%;
+  background: var(--gold); color: var(--white);
+  font-size: 10px; display: flex; align-items: center; justify-content: center;
+  transition: transform .2s;
+}
+.nav-cart:hover .cart-dot { transform: scale(1.15); }
+
+.nav-burger {
+  display: none; flex-direction: column; gap: 5px;
+  cursor: pointer; background: none; border: none; padding: 4px;
+}
+.nav-burger span { width: 22px; height: 1px; background: var(--deep); transition: all .3s; display: block; }
+.nav-burger.open span:nth-child(1) { transform: rotate(45deg) translate(4px, 4px); }
+.nav-burger.open span:nth-child(2) { opacity: 0; }
+.nav-burger.open span:nth-child(3) { transform: rotate(-45deg) translate(4px, -4px); }
+
+.mobile-nav {
+  position: fixed; inset: 0; z-index: 799;
+  background: var(--cream);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 32px;
+  transform: translateX(100%);
+  transition: transform .5s cubic-bezier(0.4,0,0.2,1);
+}
+.mobile-nav.open { transform: translateX(0); }
+.mobile-nav a {
+  font-family: var(--serif); font-size: 36px; font-weight: 300;
+  color: var(--deep); text-decoration: none; font-style: italic;
+  transition: color .2s;
+}
+.mobile-nav a:hover { color: var(--gold); }
+
+/* ── AUTH LINKS ── */
+.nav-auth-links {
+  display: flex; align-items: center; gap: 10px;
+}
+.nav-auth-link {
+  font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+  text-decoration: none; color: var(--deep); opacity: .65;
+  transition: all var(--trans); padding: 7px 14px;
+}
+.nav-auth-link:hover { opacity: 1; color: var(--gold); }
+.nav-auth-signup {
+  border: 1px solid var(--gold); color: var(--gold); opacity: 1;
+  transition: background .3s, color .3s;
+}
+.nav-auth-signup:hover { background: var(--gold); color: var(--white); opacity: 1; }
+
+/* ── USER AVATAR ── */
+.user-menu-wrap { position: relative; }
+.user-avatar-btn {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--gold-ring), var(--gold));
+  color: var(--white);
+  font-family: var(--serif); font-size: 13px; font-weight: 400;
+  letter-spacing: 1px;
+  border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: transform .25s, box-shadow .25s;
+  box-shadow: 0 2px 10px rgba(160,120,40,.3);
+}
+.user-avatar-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 4px 16px rgba(160,120,40,.4);
+}
+
+/* ── USER DROPDOWN ── */
+.user-dropdown {
+  position: absolute; top: calc(100% + 12px); right: 0;
+  width: 220px;
+  background: var(--white);
+  border: 1px solid rgba(160,120,40,.15);
+  box-shadow: 0 8px 32px rgba(58,42,16,.14);
+  z-index: 900;
+  animation: dropIn .2s ease;
+}
+@keyframes dropIn { from{opacity:0;transform:translateY(-8px)} to{opacity:1;transform:translateY(0)} }
+
+.user-dropdown-header {
+  padding: 16px 18px;
+  border-bottom: 1px solid rgba(160,120,40,.1);
+  background: var(--cream);
+}
+.user-dropdown-name {
+  font-family: var(--serif); font-size: 16px; font-weight: 400;
+  color: var(--deep); margin-bottom: 2px;
+}
+.user-dropdown-email { font-size: 11px; color: var(--smoke); }
+
+.user-dropdown-item {
+  display: block; width: 100%;
+  padding: 12px 18px;
+  font-size: 12px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--smoke); text-decoration: none; background: none; border: none;
+  cursor: pointer; text-align: left;
+  transition: background .2s, color .2s;
+  font-family: var(--sans);
+}
+.user-dropdown-item:hover { background: var(--cream); color: var(--gold); }
+.user-dropdown-signout { color: var(--petal); }
+.user-dropdown-signout:hover { background: rgba(232,72,90,.06); color: #C03040; }
+
+/* ── MOBILE SIGNOUT ── */
+.mobile-signout {
+  font-family: var(--serif); font-size: 36px; font-weight: 300;
+  color: var(--petal); text-decoration: none; font-style: italic;
+  transition: color .2s; background: none; border: none; cursor: pointer;
+}
+.mobile-signout:hover { color: #C03040; }
+
+
+@media (max-width: 900px) {
+  .navbar { padding: 12px 24px; }
+  .navbar.solid { padding: 10px 24px; }
+  .nav-links { display: none; }
+  .nav-auth-links { display: none; }
+  .user-menu-wrap { display: none; }
+  .nav-burger { display: flex; }
+}

@@ -1,0 +1,69 @@
+.ritual-page { background: var(--cream); min-height: 100vh; }
+.ritual-hero {
+  min-height: 60vh; background: var(--cream);
+  display: flex; align-items: flex-end; padding: 0 60px 80px;
+  background-image: radial-gradient(ellipse at 80% 40%, rgba(160,120,40,.1), transparent 55%);
+  border-bottom: 1px solid rgba(160,120,40,.1);
+}
+.ritual-hero-text { padding-top: 120px; }
+.ritual-h1 { font-family: var(--serif); font-size: clamp(48px,8vw,88px); font-weight: 300; color: var(--deep); line-height: .95; margin-bottom: 18px; }
+.ritual-h1 em { font-style: italic; color: var(--gold); }
+.ritual-hero-text p { font-size: 16px; color: var(--smoke); max-width: 480px; line-height: 1.75; }
+
+.steps-section { background: var(--char); padding: 80px 60px; }
+.steps-header { text-align: center; margin-bottom: 56px; }
+.step-row {
+  display: grid; grid-template-columns: 80px 1fr;
+  gap: 40px; align-items: flex-start;
+  padding: 48px 0; border-bottom: 1px solid rgba(255,255,255,.05);
+  max-width: 800px; margin: 0 auto;
+}
+.step-row:last-child { border-bottom: none; }
+.step-num { font-family: var(--serif); font-size: 64px; font-weight: 300; color: var(--gold); opacity: .3; line-height: 1; }
+.step-content h3 { font-family: var(--serif); font-size: 28px; font-weight: 300; font-style: italic; color: var(--white); margin-bottom: 10px; }
+.step-content p { font-size: 14px; line-height: 1.8; color: var(--smoke); }
+
+.care-section { background: var(--sand); padding: 80px 60px; }
+.care-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-top: 48px; max-width: 900px; }
+.care-card { background: var(--white); padding: 36px 32px; }
+.care-card h4 { font-family: var(--serif); font-size: 22px; font-weight: 400; color: var(--deep); margin-bottom: 12px; }
+.care-card p { font-size: 13px; line-height: 1.75; color: var(--smoke); }
+.care-do { border-top: 3px solid var(--accent2, #4A6741); }
+.care-dont { border-top: 3px solid var(--petal); }
+
+.scent-guide { background: var(--cream); padding: 80px 60px; }
+.scent-table-wrap { margin-top: 40px; overflow-x: auto; }
+.scent-table { width: 100%; border-collapse: collapse; max-width: 900px; }
+.scent-table th {
+  font-size: 9px; letter-spacing: 4px; text-transform: uppercase; color: var(--smoke);
+  padding: 12px 20px; text-align: left; border-bottom: 2px solid var(--warm); background: var(--sand);
+}
+.scent-table td { padding: 16px 20px; border-bottom: 1px solid var(--sand); font-size: 13px; color: var(--deep); vertical-align: middle; }
+.scent-table tr:hover td { background: var(--sand); }
+.scent-dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; vertical-align: middle; margin-right: 8px; }
+
+.ritual-cta { background: var(--white); padding: 80px 60px; text-align: center; border-top: 1px solid rgba(160,120,40,.1); }
+
+@media (max-width: 900px) {
+  .ritual-hero { padding: 0 24px 56px; }
+  .steps-section { padding: 60px 24px; }
+  .step-row { grid-template-columns: 60px 1fr; gap: 20px; padding: 36px 0; }
+  .care-section { padding: 60px 24px; }
+  .care-grid { grid-template-columns: 1fr; }
+  .scent-guide { padding: 60px 24px; }
+  .ritual-cta { padding: 60px 24px; }
+}
+
+.ritual-hero {
+  background-image: url('/images/hero-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+.ritual-hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: rgba(245,240,224,.78);
+  background-image: radial-gradient(ellipse at 80% 40%, rgba(160,120,40,.08), transparent 55%);
+}
+.ritual-hero-text { position: relative; z-index: 1; }
